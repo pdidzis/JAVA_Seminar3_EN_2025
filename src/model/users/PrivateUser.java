@@ -75,11 +75,28 @@ public class PrivateUser extends RegisteredUser {
 	}
 	
 
+	//params[0] - text message for the post
 	@Override
-	public void createPost(PostType postType, String... params) {
-		// TODO Auto-generated method stub
+	public void createPost(PostType postType, String... params) throws Exception {
+		if(postType == null || params == null) {
+			throw new Exception("Params shoudl be not null");
+		}
+		
+		if(params.length < 1) {
+			throw new Exception("There is no msg in input param");
+		}
+		
+		Post newPost = new Post(params[0]);
+		if(postType.equals(PostType.privatePost)) {
+			privatePosts.add(newPost);
+		}
+		else if (postType.equals(PostType.publicPost))
+		{
+			publicPosts.add(newPost);
+		}
 		
 	}
+
 
 
 }
